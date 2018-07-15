@@ -1,0 +1,51 @@
+<head>
+ <script src="vue.js"></script>
+ <script src="axios.js"></script>
+</head>
+<body>
+ <div id="app">
+ <img :src="img" alt="Lampada" @click="trocar()">
+ {{message}}
+ </div>
+ <script>
+ var app = new Vue({
+ el: '#app',
+ data: {
+ message: '',
+ img: 'on.png',
+ status: 'off',
+ server: 'http://IPAddress/lamp'
+ },
+ mounted() {
+ var url = this.server + '/get'
+ var self = this
+ axios.get(url)
+ .then(function(response){
+ if (response.data === "False") {
+ self.img = "off.png"
+ }
+ else {
+ self.img = "on.png"
+ }
+ })
+ }
+ methods: {
+ trocar () {
+ var url = this.server + '/toggle'
+ var self = this
+ axios.get(url)
+ .then(function(response){
+ if (response.data === "False") {
+ self.img = "off.png"
+ }
+ else {
+ self.img = "on.png"
+ }
+ })
+ }
+ }
+ })
+
+ </script>
+</body>
+
